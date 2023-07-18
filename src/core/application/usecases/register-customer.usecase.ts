@@ -24,9 +24,9 @@ export class RegisterCustomerUseCase {
       throw new CustomerAlreadyExistsError(email);
     }
 
-    const password = await this.hasher.hash(plainTextPassword);
+    const hashedPassword = await this.hasher.hash(plainTextPassword);
 
-    const customer = Customer.create({ name, email, password });
+    const customer = Customer.create({ name, email, password: hashedPassword });
 
     await this.customerRepository.save(customer);
   }
