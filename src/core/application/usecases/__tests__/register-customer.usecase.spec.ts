@@ -22,9 +22,7 @@ describe('Register Customer UseCase', () => {
   });
 
   it('should create a new customer on success', async () => {
-    await usecase.execute(payload);
-
-    const customer = customerRepository['customers'][0];
+    const customer = await usecase.execute(payload);
 
     expect(customer).toBeDefined();
     expect(customer).toEqual(
