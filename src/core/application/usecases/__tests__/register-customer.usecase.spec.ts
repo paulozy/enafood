@@ -46,4 +46,14 @@ describe('Register Customer UseCase', () => {
       CustomerAlreadyExistsError,
     );
   });
+
+  it('should hash the password before saving', async () => {
+    const spy = jest.spyOn(InMemoryHasherGateway.prototype, 'hash');
+
+    await usecase.execute(payload);
+
+    expect(spy).toHaveBeenCalledWith(payload.plainTextPassword);
+
+    spy.mockRestore();
+  });
 });
