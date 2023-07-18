@@ -4,6 +4,7 @@ type ProductProps = {
   id?: string;
   name: string;
   price: number;
+  quantity: number;
   createdAt?: number;
   updatedAt?: number;
 };
@@ -11,12 +12,14 @@ type ProductProps = {
 export class Product extends BaseEntity {
   private _name: string;
   private _price: number;
+  private _quantity: number;
 
   private constructor({ id, name, price, createdAt, updatedAt }: ProductProps) {
     super({ id, createdAt, updatedAt });
 
     this._name = name;
     this._price = price;
+    this._quantity = 0;
   }
 
   static create(props: ProductProps): Product {
@@ -29,5 +32,9 @@ export class Product extends BaseEntity {
 
   get price(): number {
     return this._price;
+  }
+
+  get quantity(): number {
+    return this._quantity;
   }
 }
