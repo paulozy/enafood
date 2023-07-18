@@ -10,28 +10,15 @@ type OrderProps = {
 
 export class Order extends BaseEntity {
   private _products: Product[];
-  private _total: number;
 
-  private constructor({
-    id,
-    products,
-    total,
-    createdAt,
-    updatedAt,
-  }: OrderProps & { total: number }) {
+  private constructor({ id, products, createdAt, updatedAt }: OrderProps) {
     super({ id, createdAt, updatedAt });
 
     this._products = products;
-    this._total = total;
   }
 
   static create(props: OrderProps): Order {
-    const total = Order.calculateTotal(props.products);
-
-    return new Order({
-      ...props,
-      total,
-    });
+    return new Order(props);
   }
 
   static calculateTotal(products: Product[]): number {
@@ -39,7 +26,7 @@ export class Order extends BaseEntity {
   }
 
   get total(): number {
-    return this._total;
+    return this._products.reduce((acc, curr) => acc + curr.price, 0);
   }
 
   get products(): Product[] {
@@ -48,6 +35,5 @@ export class Order extends BaseEntity {
 
   addProduct(product: Product): void {
     this._products.push(product);
-    this._total = Order.calculateTotal(this._products);
   }
 }
