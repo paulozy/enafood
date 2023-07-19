@@ -44,4 +44,18 @@ describe('Decrease Product Quantity From Cart UseCase', () => {
       }),
     ).rejects.toBeInstanceOf(CustomerNotFoundError);
   });
+
+  it('should remove product from cart if quantity is 1', async () => {
+    const anotherProduct = makeProduct({});
+    customer.cart.addProduct(anotherProduct, 1);
+
+    customerRepository.save(customer);
+
+    const cart = await usecase.execute({
+      customerId: customer.id,
+      productId: anotherProduct.id,
+    });
+
+    expect(cart.products).toHaveLength(1);
+  });
 });
