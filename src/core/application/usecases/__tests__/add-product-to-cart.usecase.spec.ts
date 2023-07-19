@@ -1,6 +1,7 @@
 import { Customer } from '@domain/entities/customer.entity';
 import { CustomerRepository } from '@domain/repositories/customer-repository.interface';
 import { ProductRepository } from '@domain/repositories/product-repository.interface';
+import { CustomerNotFoundError } from '../@errors/customer-not-found-error';
 import { CreateCartUseCase } from '../add-product-to-cart.usecase';
 import { makeCustomer } from './factories/customer-factory';
 import { InMemoryCustomerRepository } from './repositories/in-memory-customer-repository';
@@ -76,5 +77,17 @@ describe('Create Cart UseCase', () => {
 
     expect(cart).toBeDefined();
     expect(cart.total).toBe(10.99);
+  });
+
+  it('should throw if customer not found', async () => {
+    await expect(
+      usecase.execute({
+        customerId: 'invalid-customer-id',
+        item: {
+          id: productInfo.id,
+          quantity: 1,
+        },
+      }),
+    ).rejects.toBeInstanceOf(CustomerNotFoundError);
   });
 });
