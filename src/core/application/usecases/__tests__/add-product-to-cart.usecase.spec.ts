@@ -46,4 +46,22 @@ describe('Create Cart UseCase', () => {
     expect(cart.products[0].id).toBe(productInfo.id);
     expect(cart.products[0].quantity).toBe(1);
   });
+
+  it('should be possible add a product to cart and decrease product quantity', async () => {
+    const cart = await usecase.execute({
+      customerId: customer.id,
+      item: {
+        id: productInfo.id,
+        quantity: 1,
+      },
+    });
+
+    const product = await productRepository.findById(productInfo.id);
+
+    expect(cart).toBeDefined();
+    expect(cart.products.length).toBe(1);
+    expect(cart.products[0].id).toBe(productInfo.id);
+    expect(cart.products[0].quantity).toBe(1);
+    expect(product.quantity).toBe(4);
+  });
 });
