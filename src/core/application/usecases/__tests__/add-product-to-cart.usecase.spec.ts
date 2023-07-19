@@ -64,4 +64,17 @@ describe('Create Cart UseCase', () => {
     expect(cart.products[0].quantity).toBe(1);
     expect(product.quantity).toBe(4);
   });
+
+  it('should be possible add a product to cart and increase cart total', async () => {
+    const cart = await usecase.execute({
+      customerId: customer.id,
+      item: {
+        id: productInfo.id,
+        quantity: 1,
+      },
+    });
+
+    expect(cart).toBeDefined();
+    expect(cart.total).toBe(10.99);
+  });
 });
