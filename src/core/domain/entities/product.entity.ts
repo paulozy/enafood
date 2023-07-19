@@ -14,12 +14,19 @@ export class Product extends BaseEntity {
   private _price: number;
   private _quantity: number;
 
-  private constructor({ id, name, price, createdAt, updatedAt }: ProductProps) {
+  private constructor({
+    id,
+    name,
+    price,
+    createdAt,
+    quantity,
+    updatedAt,
+  }: ProductProps) {
     super({ id, createdAt, updatedAt });
 
     this._name = name;
     this._price = price;
-    this._quantity = 0;
+    this._quantity = quantity;
   }
 
   static create(props: ProductProps): Product {
@@ -36,5 +43,9 @@ export class Product extends BaseEntity {
 
   get quantity(): number {
     return this._quantity;
+  }
+
+  decreaseQuantity(quantity: number): void {
+    this._quantity -= quantity;
   }
 }
