@@ -58,4 +58,14 @@ describe('Decrease Product Quantity From Cart UseCase', () => {
 
     expect(cart.products).toHaveLength(1);
   });
+
+  it('should do nothing if product does not exist', async () => {
+    await usecase.execute({
+      customerId: customer.id,
+      productId: 'invalid-product-id',
+    });
+
+    expect(customer.cart.products).toHaveLength(1);
+    expect(customer.cart.products[0].quantity).toBe(2);
+  });
 });
