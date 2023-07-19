@@ -3,13 +3,13 @@ import { CustomerRepository } from '@domain/repositories/customer-repository.int
 import { ProductRepository } from '@domain/repositories/product-repository.interface';
 import { CustomerNotFoundError } from '../@errors/customer-not-found-error';
 import { ProductNotFoundError } from '../@errors/product-not-found-error';
-import { CreateCartUseCase } from '../add-product-to-cart.usecase';
+import { AddProductToCartUseCase } from '../add-product-to-cart.usecase';
 import { makeCustomer } from './factories/customer-factory';
 import { InMemoryCustomerRepository } from './repositories/in-memory-customer-repository';
 import { InMemoryProductRepository } from './repositories/in-memory-product-repository';
 
 describe('Create Cart UseCase', () => {
-  let usecase: CreateCartUseCase;
+  let usecase: AddProductToCartUseCase;
   let customerRepository: CustomerRepository;
   let productRepository: ProductRepository;
 
@@ -31,7 +31,10 @@ describe('Create Cart UseCase', () => {
 
     customerRepository.save(customer);
 
-    usecase = new CreateCartUseCase(productRepository, customerRepository);
+    usecase = new AddProductToCartUseCase(
+      productRepository,
+      customerRepository,
+    );
   });
 
   it('should be possible add a product to cart', async () => {
