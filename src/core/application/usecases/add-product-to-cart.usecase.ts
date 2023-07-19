@@ -15,7 +15,7 @@ type CreateCartInput = {
   item: CartProduct;
 };
 
-export class CreateCartUseCase {
+export class AddProductToCartUseCase {
   constructor(
     private readonly productRepository: ProductRepository,
     private readonly customerRepository: CustomerRepository,
@@ -43,10 +43,7 @@ export class CreateCartUseCase {
     const cart = customer.cart;
 
     cart.addProduct(product, item.quantity);
-    product.decreaseQuantity(item.quantity);
-
     await this.customerRepository.save(customer);
-    await this.productRepository.save(product);
 
     return cart;
   }
