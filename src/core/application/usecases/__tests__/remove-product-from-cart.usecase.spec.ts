@@ -43,4 +43,13 @@ describe('', () => {
       }),
     ).rejects.toBeInstanceOf(CustomerNotFoundError);
   });
+
+  it('should do nothing if product does not exist in cart', async () => {
+    const cart = await usecase.execute({
+      customerId: customer.id,
+      productId: 'invalid-product-id',
+    });
+
+    expect(cart.products).toHaveLength(1);
+  });
 });
