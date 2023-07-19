@@ -1,6 +1,7 @@
 import { Customer } from '@domain/entities/customer.entity';
 import { Product } from '@domain/entities/product.entity';
 import { CustomerRepository } from '@domain/repositories/customer-repository.interface';
+import { CustomerNotFoundError } from '../@errors/customer-not-found-error';
 import { DecreaseProductQuantityFromCartUseCase } from '../decrease-product-quantity-from-cart.usecase';
 import { makeCustomer } from './factories/customer-factory';
 import { makeProduct } from './factories/product-factory';
@@ -33,5 +34,14 @@ describe('Decrease Product Quantity From Cart UseCase', () => {
 
     expect(cart.products).toHaveLength(1);
     expect(cart.products[0].quantity).toBe(1);
+  });
+
+  it('should throw an error if customer does not exist', async () => {
+    await expect(
+      usecase.execute({
+        customerId: 'invalid-customer-id',
+        productId: product.id,
+      }),
+    ).rejects.toBeInstanceOf(CustomerNotFoundError);
   });
 });
