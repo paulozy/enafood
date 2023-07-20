@@ -1,13 +1,14 @@
 import { Product } from '@domain/entities/product.entity';
-import { ProductRepository } from '@domain/repositories/product-repository.interface';
+import {
+  ProductRepository,
+  UpdateStockInput,
+} from '@domain/repositories/product-repository.interface';
 import { products } from '@shared/utils/products';
 
+const mappedProducts = products.map((product) => Product.create(product));
+
 export class InMemoryProductRepository implements ProductRepository {
-  products: Product[] = products.map((p) => {
-    return Product.create({
-      ...p,
-    });
-  });
+  products: Product[] = mappedProducts;
 
   async exists(id: string): Promise<boolean> {
     return this.products.some((p) => p.id === id);
@@ -27,6 +28,18 @@ export class InMemoryProductRepository implements ProductRepository {
 
   async findByName(name: string): Promise<Product> {
     return this.products.find((p) => p.name === name);
+  }
+
+  async updateStockMany(products: UpdateStockInput[]): Promise<void> {
+    products.forEach((product) => {
+      const productIndex = this.products.findIndex(
+        (p) => p.id === product.productId,
+      );
+
+      if (productIndex >= 0) {
+        this.products[productIndex].decreaseQuantity(product.quantity);
+      }
+    });
   }
 
   async delete(id: string): Promise<void> {
