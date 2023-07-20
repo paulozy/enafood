@@ -72,6 +72,10 @@ export class Customer extends BaseEntity {
     return this._addresses;
   }
 
+  getPaymentMethod(paymentId: string): Payment {
+    return this._paymentMethods.find((p) => p.id === paymentId);
+  }
+
   addPaymentMethod(payment: Payment): void {
     this._paymentMethods.push(payment);
   }
