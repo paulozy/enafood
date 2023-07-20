@@ -1,4 +1,5 @@
 import { BaseEntity } from '@shared/domain/entities/base.entity';
+import { Address } from './address.entity';
 import { Cart } from './cart.entity';
 import { Payment } from './payment.entity';
 
@@ -9,6 +10,7 @@ type CustomerProps = {
   password: string;
   cart?: Cart;
   paymentMethods?: Payment[];
+  addressess?: Address[];
   createdAt?: number;
   updatedAt?: number;
 };
@@ -18,6 +20,7 @@ export class Customer extends BaseEntity {
   private _email: string;
   private _password: string;
   private _paymentMethods: Payment[];
+  private _addressess: Address[];
   private _cart: Cart;
 
   private constructor({
@@ -27,6 +30,7 @@ export class Customer extends BaseEntity {
     password,
     cart,
     paymentMethods,
+    addressess,
     createdAt,
     updatedAt,
   }: CustomerProps) {
@@ -37,6 +41,7 @@ export class Customer extends BaseEntity {
     this._password = password;
     this._paymentMethods = paymentMethods ?? [];
     this._cart = cart ?? Cart.create({});
+    this._addressess = addressess ?? [];
   }
 
   static create(props: CustomerProps): Customer {
@@ -63,6 +68,10 @@ export class Customer extends BaseEntity {
     return this._cart;
   }
 
+  get addressess(): Address[] {
+    return this._addressess;
+  }
+
   addPaymentMethod(payment: Payment): void {
     this._paymentMethods.push(payment);
   }
@@ -71,5 +80,13 @@ export class Customer extends BaseEntity {
     this._paymentMethods = this._paymentMethods.filter(
       (p) => p.id !== payment.id,
     );
+  }
+
+  addAddress(address: Address): void {
+    this._addressess.push(address);
+  }
+
+  removeAddress(address: Address): void {
+    this._addressess = this._addressess.filter((a) => a.id !== address.id);
   }
 }
