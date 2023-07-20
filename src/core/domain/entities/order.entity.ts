@@ -15,11 +15,13 @@ type OrderProps = {
 };
 
 export class Order extends BaseEntity {
+  private _customerId: string;
   private _products: OrderProduct[];
   private _total: number;
 
   private constructor({
     id,
+    customerId,
     products,
     total,
     createdAt,
@@ -28,6 +30,7 @@ export class Order extends BaseEntity {
     super({ id, createdAt, updatedAt });
     this._products = products;
     this._total = total;
+    this._customerId = customerId;
   }
 
   static create(props: OrderProps): Order {
@@ -40,5 +43,9 @@ export class Order extends BaseEntity {
 
   get total(): number {
     return this._total;
+  }
+
+  get customerId(): string {
+    return this._customerId;
   }
 }
