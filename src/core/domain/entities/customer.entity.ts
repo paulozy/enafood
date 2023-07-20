@@ -86,7 +86,7 @@ export class Customer extends BaseEntity {
     this._addresses.push(address);
   }
 
-  removeAddress(address: Address): void {
-    this._addresses = this._addresses.filter((a) => a.id !== address.id);
+  removeAddress(addressId: string): void {
+    this._addresses = this._addresses.filter((a) => a.id !== addressId);
   }
 }
