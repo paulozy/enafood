@@ -1,5 +1,6 @@
 import { Customer } from '@domain/entities/customer.entity';
 import { CustomerRepository } from '@domain/repositories/customer-repository.interface';
+import { CustomerNotFoundError } from '../@errors/customer-not-found-error';
 import { AddAddressToCustomerUseCase } from '../add-address-to-customer.usecase';
 import { makeCustomer } from './factories/customer-factory';
 import { InMemoryCustomerRepository } from './repositories/in-memory-customer-repository';
@@ -43,5 +44,14 @@ describe('Add Address to Customer UseCase', () => {
     expect(customer.addresses[0].state).toBe(payload.state);
     expect(customer.addresses[0].country).toBe(payload.country);
     expect(customer.addresses[0].zipCode).toBe(payload.zipCode);
+  });
+
+  it('should not be possible add a address to customer if customer not found', async () => {
+    await expect(
+      usecase.execute({
+        customerId: 'invalid-customer-id',
+        ...payload,
+      }),
+    ).rejects.toBeInstanceOf(CustomerNotFoundError);
   });
 });
