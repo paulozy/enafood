@@ -1,6 +1,5 @@
 import { BaseEntity } from '@shared/domain/entities/base.entity';
 import { Cart } from './cart.entity';
-import { Order } from './order.entity';
 import { Payment } from './payment.entity';
 
 type CustomerProps = {
@@ -10,7 +9,6 @@ type CustomerProps = {
   password: string;
   cart?: Cart;
   paymentMethods?: Payment[];
-  orders?: Order[];
   createdAt?: number;
   updatedAt?: number;
 };
@@ -20,7 +18,6 @@ export class Customer extends BaseEntity {
   private _email: string;
   private _password: string;
   private _paymentMethods: Payment[];
-  private _orders: Order[];
   private _cart: Cart;
 
   private constructor({
@@ -29,7 +26,6 @@ export class Customer extends BaseEntity {
     email,
     password,
     cart,
-    orders,
     paymentMethods,
     createdAt,
     updatedAt,
@@ -40,7 +36,6 @@ export class Customer extends BaseEntity {
     this._email = email;
     this._password = password;
     this._paymentMethods = paymentMethods ?? [];
-    this._orders = orders ?? [];
     this._cart = cart ?? Cart.create({});
   }
 
@@ -64,16 +59,8 @@ export class Customer extends BaseEntity {
     return this._paymentMethods;
   }
 
-  get orders(): Order[] {
-    return this._orders;
-  }
-
   get cart(): Cart {
     return this._cart;
-  }
-
-  addOrder(order: Order): void {
-    this._orders.push(order);
   }
 
   addPaymentMethod(payment: Payment): void {
