@@ -1,6 +1,6 @@
 import { BaseEntity } from '@shared/domain/entities/base.entity';
 
-enum PaymentMethod {
+export enum PaymentMethod {
   CREDIT_CARD = 'credit_card',
   DEBIT_CARD = 'debit_card',
 }
