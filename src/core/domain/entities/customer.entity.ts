@@ -10,7 +10,7 @@ type CustomerProps = {
   password: string;
   cart?: Cart;
   paymentMethods?: Payment[];
-  addressess?: Address[];
+  addresses?: Address[];
   createdAt?: number;
   updatedAt?: number;
 };
@@ -20,7 +20,7 @@ export class Customer extends BaseEntity {
   private _email: string;
   private _password: string;
   private _paymentMethods: Payment[];
-  private _addressess: Address[];
+  private _addresses: Address[];
   private _cart: Cart;
 
   private constructor({
@@ -30,7 +30,7 @@ export class Customer extends BaseEntity {
     password,
     cart,
     paymentMethods,
-    addressess,
+    addresses,
     createdAt,
     updatedAt,
   }: CustomerProps) {
@@ -41,7 +41,7 @@ export class Customer extends BaseEntity {
     this._password = password;
     this._paymentMethods = paymentMethods ?? [];
     this._cart = cart ?? Cart.create({});
-    this._addressess = addressess ?? [];
+    this._addresses = addresses ?? [];
   }
 
   static create(props: CustomerProps): Customer {
@@ -68,8 +68,8 @@ export class Customer extends BaseEntity {
     return this._cart;
   }
 
-  get addressess(): Address[] {
-    return this._addressess;
+  get addresses(): Address[] {
+    return this._addresses;
   }
 
   addPaymentMethod(payment: Payment): void {
@@ -83,10 +83,10 @@ export class Customer extends BaseEntity {
   }
 
   addAddress(address: Address): void {
-    this._addressess.push(address);
+    this._addresses.push(address);
   }
 
   removeAddress(address: Address): void {
-    this._addressess = this._addressess.filter((a) => a.id !== address.id);
+    this._addresses = this._addresses.filter((a) => a.id !== address.id);
   }
 }
