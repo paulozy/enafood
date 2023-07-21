@@ -21,7 +21,7 @@ describe('Remove Payment Method From Customer UseCase', () => {
     customer = makeCustomer({});
     paymentMethod = makePayment({});
     customer.addPaymentMethod(paymentMethod);
-    customerRepository.save(customer);
+    customerRepository.create(customer);
 
     usecase = new RemovePaymentMethodFromCustomerUseCase(customerRepository);
   });

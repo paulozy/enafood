@@ -17,7 +17,7 @@ describe('Add Payment Method to Customer UseCase', () => {
     customerRepository = new InMemoryCustomerRepository();
 
     customer = makeCustomer({});
-    customerRepository.save(customer);
+    customerRepository.create(customer);
 
     payload = {
       customerId: customer.id,

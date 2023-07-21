@@ -29,7 +29,7 @@ describe('Create Cart UseCase', () => {
 
     customer = makeCustomer({});
 
-    customerRepository.save(customer);
+    customerRepository.create(customer);
 
     usecase = new AddProductToCartUseCase(
       productRepository,

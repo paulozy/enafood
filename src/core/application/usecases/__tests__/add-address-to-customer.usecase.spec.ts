@@ -25,7 +25,7 @@ describe('Add Address to Customer UseCase', () => {
     customerRepository = new InMemoryCustomerRepository();
 
     customer = makeCustomer({});
-    customerRepository.save(customer);
+    customerRepository.create(customer);
 
     usecase = new AddAddressToCustomerUseCase(customerRepository);
   });

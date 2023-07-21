@@ -21,7 +21,7 @@ describe('Remove Address From Customer UseCase', () => {
     address = makeAddress({});
     customer.addAddress(address);
 
-    customerRepository.save(customer);
+    customerRepository.create(customer);
 
     usecase = new RemoveAddressFromCustomerUseCase(customerRepository);
   });

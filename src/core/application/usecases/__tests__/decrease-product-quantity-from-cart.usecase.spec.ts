@@ -21,7 +21,7 @@ describe('Decrease Product Quantity From Cart UseCase', () => {
     product = makeProduct({});
     customer.cart.addProduct(product, 2);
 
-    customerRepository.save(customer);
+    customerRepository.create(customer);
 
     usecase = new DecreaseProductQuantityFromCartUseCase(customerRepository);
   });

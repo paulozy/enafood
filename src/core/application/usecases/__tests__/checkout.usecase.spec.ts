@@ -38,7 +38,7 @@ describe('Checkout UseCase', () => {
     customer.cart.addProduct(products[0], 1);
     customer.cart.addProduct(products[1], 1);
 
-    customerRepository.save(customer);
+    customerRepository.create(customer);
 
     payload = {
       CVC: '123',

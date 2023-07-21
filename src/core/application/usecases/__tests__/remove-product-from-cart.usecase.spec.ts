@@ -21,7 +21,7 @@ describe('', () => {
     product = makeProduct({});
     customer.cart.addProduct(product, 1);
 
-    customerRepository.save(customer);
+    customerRepository.create(customer);
 
     usecase = new RemoveProductFromCartUseCase(customerRepository);
   });

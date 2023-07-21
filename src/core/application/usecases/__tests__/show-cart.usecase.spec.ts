@@ -15,7 +15,7 @@ describe('Show Cart UseCase', () => {
     customerRepository = new InMemoryCustomerRepository();
 
     customer = makeCustomer({});
-    customerRepository.save(customer);
+    customerRepository.create(customer);
 
     useCase = new ShowCartUseCase(customerRepository);
   });
