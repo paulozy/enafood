@@ -8,8 +8,16 @@ export class InMemoryCustomerRepository implements CustomerRepository {
     return this.customers.some((customer) => customer.email === email);
   }
 
-  async save(customer: Customer): Promise<void> {
+  async create(customer: Customer): Promise<void> {
     this.customers.push(customer);
+  }
+
+  async save(customer: Customer): Promise<void> {
+    const customerIndex = this.customers.findIndex(
+      (customer) => customer.id === customer.id,
+    );
+
+    this.customers[customerIndex] = customer;
   }
 
   async findById(id: string): Promise<Customer> {
