@@ -86,6 +86,10 @@ export class Customer extends BaseEntity {
     );
   }
 
+  getAddress(addressId: string): Address {
+    return this._addresses.find((a) => a.id === addressId);
+  }
+
   addAddress(address: Address): void {
     this._addresses.push(address);
   }
