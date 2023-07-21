@@ -20,7 +20,8 @@
     "rootDir": ".",
     "paths": {
       "@shared/*": ["src/core/@shared/*"],
-      "@domain/*": ["src/core/domain/*"]
+      "@domain/*": ["src/core/domain/*"],
+      "@core/*": ["src/core/*"]
     }
   }
 }
