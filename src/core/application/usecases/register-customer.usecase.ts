@@ -3,7 +3,7 @@ import { HasherGateway } from '@domain/gateways/hasher.gateway';
 import { CustomerRepository } from '@domain/repositories/customer-repository.interface';
 import { CustomerAlreadyExistsError } from './@errors/customer-already-exists-error';
 
-type RegisterCustomerInput = {
+export type RegisterCustomerInput = {
   name: string;
   email: string;
   plainTextPassword: string;
