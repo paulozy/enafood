@@ -104,7 +104,7 @@ export class CustomerService {
         case 'CustomerNotFoundError':
           throw new NotFound(error.message);
         case 'AddressNotFoundError':
-          throw new BadRequest(error.message);
+          throw new NotFound(error.message);
         default:
           throw new InternalServerError();
       }
