@@ -1,7 +1,7 @@
 import { CustomerRepository } from '@domain/repositories/customer-repository.interface';
 import { CustomerNotFoundError } from './@errors/customer-not-found-error';
 
-type RemoveAddressFromCustomerInput = {
+export type RemoveAddressFromCustomerInput = {
   customerId: string;
   addressId: string;
 };
@@ -19,5 +19,7 @@ export class RemoveAddressFromCustomerUseCase {
     customer.removeAddress(addressId);
 
     await this.customerRepository.save(customer);
+
+    return customer;
   }
 }
