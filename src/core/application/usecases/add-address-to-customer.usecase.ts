@@ -2,7 +2,7 @@ import { Address } from '@domain/entities/address.entity';
 import { CustomerRepository } from '@domain/repositories/customer-repository.interface';
 import { CustomerNotFoundError } from './@errors/customer-not-found-error';
 
-type AddAddressToCustomerInput = {
+export type AddAddressToCustomerInput = {
   customerId: string;
   street: string;
   number: string;
@@ -17,7 +17,7 @@ type AddAddressToCustomerInput = {
 export class AddAddressToCustomerUseCase {
   constructor(private readonly customerRepository: CustomerRepository) {}
 
-  async execute(data: AddAddressToCustomerInput): Promise<void> {
+  async execute(data: AddAddressToCustomerInput) {
     const customer = await this.customerRepository.findById(data.customerId);
 
     if (!customer) {
@@ -31,5 +31,7 @@ export class AddAddressToCustomerUseCase {
     customer.addAddress(address);
 
     await this.customerRepository.save(customer);
+
+    return customer;
   }
 }
