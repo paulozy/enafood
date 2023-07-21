@@ -47,6 +47,10 @@ export class PrismaCustomerRepository implements CustomerRepository {
       where: { id },
     });
 
+    if (!rawData) {
+      return null;
+    }
+
     return CustomerMapper.toDomain(rawData);
   }
 
@@ -54,6 +58,10 @@ export class PrismaCustomerRepository implements CustomerRepository {
     const rawData = await this.prisma.customer.findUnique({
       where: { email },
     });
+
+    if (!rawData) {
+      return null;
+    }
 
     return CustomerMapper.toDomain(rawData);
   }
