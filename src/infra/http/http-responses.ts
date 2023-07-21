@@ -12,6 +12,12 @@ export class BadRequest extends HttpException {
   }
 }
 
+export class NotFound extends HttpException {
+  constructor(message: string) {
+    super(message, HttpStatus.NOT_FOUND);
+  }
+}
+
 export class InternalServerError extends HttpException {
   constructor() {
     super('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
