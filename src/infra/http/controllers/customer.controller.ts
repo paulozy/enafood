@@ -73,4 +73,15 @@ export class CustomerController {
       ...body,
     });
   }
+
+  @Delete(':id/addresses/:addressId')
+  async removeAddress(
+    @Param('id') customerId: string,
+    @Param('addressId') addressId: string,
+  ) {
+    return this.customerService.removeAddress({
+      customerId,
+      addressId,
+    });
+  }
 }
