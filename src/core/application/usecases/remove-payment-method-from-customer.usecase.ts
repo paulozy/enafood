@@ -2,7 +2,7 @@ import { CustomerRepository } from '@domain/repositories/customer-repository.int
 import { CustomerNotFoundError } from './@errors/customer-not-found-error';
 import { PaymentMethodNotFoundError } from './@errors/payment-method-not-found-error';
 
-type RemovePaymentMethodFromCustomerInput = {
+export type RemovePaymentMethodFromCustomerInput = {
   customerId: string;
   paymentId: string;
 };
