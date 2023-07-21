@@ -16,11 +16,29 @@ export class PrismaCustomerRepository implements CustomerRepository {
     return !!consumer;
   }
 
-  async save(customer: Customer): Promise<void> {
+  async create(customer: Customer): Promise<void> {
     const rawData = CustomerMapper.toPersistence(customer);
 
     await this.prisma.customer.create({
       data: rawData,
+    });
+  }
+
+  async save(customer: Customer): Promise<void> {
+    const rawData = CustomerMapper.toPersistence(customer);
+
+    await this.prisma.customer.update({
+      where: { id: customer.id },
+      data: {
+        name: rawData.name,
+        email: rawData.email,
+        password: rawData.password,
+        cart: rawData.cart,
+        paymentMethods: rawData.paymentMethods,
+        addresses: rawData.addresses,
+        createdAt: rawData.createdAt,
+        updatedAt: rawData.updatedAt,
+      },
     });
   }
 
