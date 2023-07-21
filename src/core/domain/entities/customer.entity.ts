@@ -80,9 +80,9 @@ export class Customer extends BaseEntity {
     this._paymentMethods.push(payment);
   }
 
-  removePaymentMethod(payment: Payment): void {
+  removePaymentMethod(paymentId: string): void {
     this._paymentMethods = this._paymentMethods.filter(
-      (p) => p.id !== payment.id,
+      (p) => p.id !== paymentId,
     );
   }
 
