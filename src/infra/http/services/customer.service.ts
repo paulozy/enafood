@@ -2,9 +2,15 @@ import { CustomerUseCasesInterface } from '@core/application/factories/customer-
 import { AddAddressToCustomerInput } from '@core/application/usecases/add-address-to-customer.usecase';
 import { AddPaymentMethodToCustomerInput } from '@core/application/usecases/add-payment-method-to-customer.usecase';
 import { RegisterCustomerInput } from '@core/application/usecases/register-customer.usecase';
+import { RemoveAddressFromCustomerInput } from '@core/application/usecases/remove-address-from-customer.usecase';
 import { RemovePaymentMethodFromCustomerInput } from '@core/application/usecases/remove-payment-method-from-customer.usecase';
 import { Inject, Injectable } from '@nestjs/common';
-import { BadRequest, Conflict, InternalServerError } from '../http-responses';
+import {
+  BadRequest,
+  Conflict,
+  InternalServerError,
+  NotFound,
+} from '../http-responses';
 import { CustomerViewModel } from '../view-models/customer-view-model';
 
 @Injectable()
@@ -41,7 +47,7 @@ export class CustomerService {
     } catch (error) {
       switch (error.constructor.name) {
         case 'CustomerNotFoundError':
-          throw new Conflict(error.message);
+          throw new NotFound(error.message);
         case 'InvalidPaymentMethodError':
           throw new BadRequest(error.message);
         default:
@@ -60,7 +66,7 @@ export class CustomerService {
     } catch (error) {
       switch (error.constructor.name) {
         case 'CustomerNotFoundError':
-          throw new Conflict(error.message);
+          throw new NotFound(error.message);
         case 'PaymentMethodNotFoundError':
           throw new BadRequest(error.message);
         default:
@@ -79,7 +85,26 @@ export class CustomerService {
     } catch (error) {
       switch (error.constructor.name) {
         case 'CustomerNotFoundError':
-          throw new Conflict(error.message);
+          throw new NotFound(error.message);
+        default:
+          throw new InternalServerError();
+      }
+    }
+  }
+
+  async removeAddress(data: RemoveAddressFromCustomerInput) {
+    try {
+      const { removeAddress } = this.customerUseCases;
+
+      const customer = await removeAddress.execute(data);
+
+      return CustomerViewModel.toHttp(customer);
+    } catch (error) {
+      switch (error.constructor.name) {
+        case 'CustomerNotFoundError':
+          throw new NotFound(error.message);
+        case 'AddressNotFoundError':
+          throw new BadRequest(error.message);
         default:
           throw new InternalServerError();
       }
