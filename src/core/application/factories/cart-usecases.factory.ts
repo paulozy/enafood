@@ -28,4 +28,5 @@ export const CartUseCases = {
       customerRepository,
     ),
   }),
+  inject: [CustomerRepository, ProductRepository],
 };
