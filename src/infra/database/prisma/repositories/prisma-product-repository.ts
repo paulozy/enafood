@@ -43,14 +43,16 @@ export class PrismaProductRepository implements ProductRepository {
   }
 
   async updateStockMany(products: UpdateStockInput[]): Promise<void> {
-    await this.prisma.$transaction(
-      products.map((product) =>
-        this.prisma.product.update({
-          where: { id: product.productId },
-          data: { quantity: product.quantity },
-        }),
-      ),
-    );
+    products.forEach(async (product) => {
+      await this.prisma.product.update({
+        where: { id: product.productId },
+        data: {
+          quantity: {
+            decrement: product.quantity,
+          },
+        },
+      });
+    });
   }
 
   async list(): Promise<Product[]> {
