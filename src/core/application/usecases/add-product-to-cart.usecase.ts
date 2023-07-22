@@ -10,7 +10,7 @@ type CartProduct = {
   quantity: number;
 };
 
-type CreateCartInput = {
+export type CreateCartInput = {
   customerId: string;
   item: CartProduct;
 };
