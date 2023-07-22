@@ -1,73 +1,83 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Relatório de Projeto
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este documento oferece uma visão geral e justificativa das decisões de
+design e tecnologia feitas durante o desenvolvimento deste projeto.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Tecnologias
 
-## Description
+- NestJS: Escolhi o NestJS pela sua robustez e facilidade na criação de um novo projeto. O NestJS é um verdadeiro amigo do desenvolvedor, pois disponibiliza diversas ferramentas prontas que simplificam o processo de desenvolvimento.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- PrismaORM: Optei pelo Prisma ORM pela sua facilidade e versatilidade. O Prisma pode ser utilizado com vários bancos de dados, incluindo o MongoDB, obrigatório neste projeto.
 
-## Installation
+- Jest: Por padrão, o NestJS utiliza o Jest como test runner. Aproveitei essa configuração inicial que me permite criar testes assim que inicio o projeto, garantindo a qualidade do código e a detecção precoce de possíveis problemas
 
-```bash
-$ yarn install
-```
+- Docker: Considero o Docker essencial em qualquer projeto moderno. Usei-o para subir uma instância do MongoDB e suas réplicas. A portabilidade e o isolamento que o Docker oferece facilitam a implantação e escalabilidade do projeto.
 
-## Running the app
+- Swagger: Para a documentação, escolhi o Swagger, uma das melhores ferramentas para a criação de documentação completa e de fácil entendimento. A integração do Swagger com o NestJS é fluida, permitindo um gerenciamento eficiente da documentação.
 
-```bash
-# development
-$ yarn run start
+## Arquitetura
 
-# watch mode
-$ yarn run start:dev
+- Semi DDD Pattern: Utilizei uma espécie de Domain-Driven Design (DDD) na criação do projeto. Devido ao tempo de conclusão do teste ser curto, a aplicação não apresenta todos os indícios de um DDD. No entanto, tentei ao máximo seguir o padrão para garantir que a lógica de negócio esteja bem definida e isolada.
 
-# production mode
-$ yarn run start:prod
-```
+- Arquitetura Hexagonal: Para evitar qualquer tipo de acoplamento ao código, utilizei o padrão de camadas da arquitetura hexagonal. Dessa forma, as minhas entidades de negócio não possuem conhecimento das ferramentas externas, o que promove a independência e possibilita a substituição dessas ferramentas caso necessário.
 
-## Test
+- Principios SOLID: Segui os princípios do SOLID, como Open-Closed Principle, Dependency Inversion e Single Responsibility Principle. Essas práticas orientam o design de classes e módulos de maneira a torná-los mais compreensíveis, flexíveis e mantíveis.
 
-```bash
-# unit tests
-$ yarn run test
+## Padrões de Projeto
 
-# e2e tests
-$ yarn run test:e2e
+- Mapper: Utilizei mappers para transitar dados entre a minha camada de domínio e a minha camada externa do banco de dados. Isso porque uma entidade no domínio não é necessariamente idêntica à mesma entidade no banco de dados. Assim, garanti a independência entre as representações dos dados no sistema e na persistência.
 
-# test coverage
-$ yarn run test:cov
-```
+- ViewModel: Adotei view models para hidratar os dados que passaria do meu domínio para as respostas das requisições da API. Esta prática permite uma representação dos dados ajustada às necessidades de visualização, separando-a da lógica de negócio.
 
-## Support
+- Repositories: Criei diversas interfaces/classes abstratas para estabelecer um "contrato" de como deveriam ser implementadas as funcionalidades de comunicação com o banco de dados. Isso mantém a organização e a clareza do código, além de promover a substituição ou alteração das implementações com mínimo impacto no restante do sistema.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Detalhes da Aplicação
 
-## Stay in touch
+- Entidades
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+  - Cliente: A entidade cliente foi concebida com os seguintes atributos: nome, email, senha, carrinho de compras, métodos de pagamento e endereços. A implementação dessa entidade visa a representar um usuário com todas as suas características essenciais para realizar transações dentro da aplicação.
 
-## License
+  - Método de Pagamento e Endereço: As informações de método de pagamento e endereço foram implementadas como entidades para serem objetos de valor dentro da aplicação. Mesmo que não necessariamente sejam entidades individuais no banco de dados, considero essencial que sejam tratados de forma autônoma e estruturada dentro do sistema.
 
-Nest is [MIT licensed](LICENSE).
+  - Carrinho de Compras: O carrinho de compras é outro componente essencial na experiência do usuário. Para representá-lo, criei uma entidade mais robusta, que contém informações como o valor total e os produtos, cada um com a quantidade comprada. Esta abordagem permite um gerenciamento eficaz dos itens selecionados pelo cliente antes de realizar a compra.
+
+  - Pedido: A entidade pedido é criada exclusivamente quando o cliente completa o checkout. Nesse momento, a aplicação atualiza os produtos (quantidade em estoque) e limpa o carrinho de compras do cliente. Incluí o ID do cliente como propriedade do pedido para permitir a listagem dos pedidos realizados por cada cliente.
+
+  - Produto: Por fim, temos a entidade produto, na qual guardo informações como nome, quantidade em estoque e preço. A entidade produto é essencial para representar os itens disponíveis para compra na plataforma.
+
+- Casos de uso:
+
+  - Para manipular o carrinho de compras, criei casos de uso que permitem adicionar produtos, remover produtos, diminuir a quantidade de um produto e exibir detalhes do carrinho.
+
+  - Além disso, criei casos de uso para adicionar e remover um método de pagamento, o que é fundamental para a realização do checkout.
+
+  - Há ainda um caso de uso que lista os produtos cuja quantidade em estoque é maior do que 1, permitindo que sejam adicionados ao carrinho.
+
+## Segurança
+
+- Rate Limit: Utilizei o rate limit para limitar o número de requisições por IP. Isso evita que um atacante sobrecarregue o servidor com requisições desnecessárias.
+
+- Helmet: Utilizei o Helmet para proteger a aplicação de vulnerabilidades conhecidas. O Helmet é um middleware que define vários cabeçalhos HTTP para aumentar a segurança da aplicação.
+
+- CORS: Utilizei o CORS para definir quais domínios podem acessar a API. Isso evita que um atacante acesse a API de um domínio não autorizado.
+
+# Instruções de Execução
+
+## Pré-requisitos
+
+- Docker
+- Docker Compose
+- NodeJS
+
+## Execução
+
+- Clone o repositório
+- Execute o comando `docker-compose up` na raiz do projeto
+- Execute o comando `npm run prepare:db` ou `yarn prepare:db` na raiz do projeto
+- Execute o comando `npm run start:dev` ou `yarn start:dev` na raiz do projeto
+- Acesse a documentação da API em http://localhost:3000/api
+- Pode-se utilizar o insomnia para testar a API. O arquivo de configuração está na raiz do projeto.
+
+## Autor
+
+- [Paulo Abreu](https://www.linkedin.com/in/paulo-abreu-santana/)
