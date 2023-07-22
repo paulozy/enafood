@@ -9,6 +9,10 @@
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
+    "prisma:generate": "npx prisma generate",
+    "prisma:push": "npx prisma db push",
+    "prisma:seed": "npx prisma db seed",
+    "prepare:db": "npm run prisma:generate && npm run prisma:push && npm run prisma:seed",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -79,6 +83,6 @@
     "testEnvironment": "node"
   },
   "prisma": {
-    "seed": "tsx ./prisma/seeds/product-seed.ts"
+    "seed": "npx -y tsx ./prisma/seeds/product-seed.ts"
   }
 }
