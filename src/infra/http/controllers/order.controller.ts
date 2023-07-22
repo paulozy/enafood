@@ -9,4 +9,11 @@ export class OrderController {
   async listCustomerOrders(@Param('customerId') customerId: string) {
     return this.orderService.listCustomerOrders({ customerId });
   }
+
+  @Get('/:customerId/:orderId')
+  async showOrder(@Param('orderId') orderId: string) {
+    return this.orderService.showOrder({
+      id: orderId,
+    });
+  }
 }
