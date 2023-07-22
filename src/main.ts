@@ -8,6 +8,7 @@ async function bootstrap() {
 
   setupSwagger(app);
   app.use(helmet());
+  app.enableCors();
 
   await app.listen(3000);
 }
