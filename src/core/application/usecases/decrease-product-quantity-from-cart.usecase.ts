@@ -2,7 +2,7 @@ import { Cart } from '@domain/entities/cart.entity';
 import { CustomerRepository } from '@domain/repositories/customer-repository.interface';
 import { CustomerNotFoundError } from './@errors/customer-not-found-error';
 
-type DecreaseProductQuantityFromCartInput = {
+export type DecreaseProductQuantityFromCartInput = {
   customerId: string;
   productId: string;
 };
