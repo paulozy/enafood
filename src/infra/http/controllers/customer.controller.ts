@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { AddAddressRules } from '../dtos/add-addres.dto';
 import { AddPaymentMethodRules } from '../dtos/add-payment-method.dto';
 import { RegisterCustomerRules } from '../dtos/register-customer.dto';
@@ -8,6 +9,7 @@ import { AddAddressValidatorFactory } from '../validators/add-addres.validator';
 import { AddPaymentMethodValidatorFactory } from '../validators/add-payment-method.validator';
 import { RegisterCustomerValidatorFactory } from '../validators/register-customer.validator';
 
+@ApiTags('customers')
 @Controller('customers')
 export class CustomerController {
   constructor(private readonly customerService: CustomerService) {}

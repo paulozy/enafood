@@ -7,11 +7,13 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { AddProductRules } from '../dtos/add-product.dto';
 import { BadRequest } from '../http-responses';
 import { CartService } from '../services/cart.service';
 import { AddProductValidatorFactory } from '../validators/add-product.validator';
 
+@ApiTags('cart')
 @Controller('cart')
 export class CartController {
   constructor(private readonly cartService: CartService) {}
