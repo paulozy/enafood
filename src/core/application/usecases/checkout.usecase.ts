@@ -62,6 +62,7 @@ export class CheckoutUseCase {
 
     cart.clear();
 
+    await this.customerRepository.save(customer);
     await this.orderRepository.save(order);
     await this.productRepository.updateStockMany(products);
 
