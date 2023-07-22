@@ -5,7 +5,7 @@ import { OrderRepository } from '@domain/repositories/order-repository.interface
 import { ProductRepository } from '@domain/repositories/product-repository.interface';
 import { CustomerNotFoundError } from './@errors/customer-not-found-error';
 
-type CheckoutInput = {
+export type CheckoutInput = {
   customerId: string;
   paymentMethodId: string;
   CVC: string;
