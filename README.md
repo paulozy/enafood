@@ -73,6 +73,7 @@ design e tecnologia feitas durante o desenvolvimento deste projeto.
 
 - Clone o repositório
 - Execute o comando `docker-compose up` na raiz do projeto
+- Renomeie o arquivo .env.example para `.env`
 - Execute o comando `npm run prepare:db` ou `yarn prepare:db` na raiz do projeto
 - Execute o comando `npm run start:dev` ou `yarn start:dev` na raiz do projeto
 - Acesse a documentação da API em http://localhost:3000/api
