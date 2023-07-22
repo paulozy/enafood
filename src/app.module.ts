@@ -6,6 +6,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './infra/database/database.module';
 import { GatewayModule } from './infra/gateways/gateway.module';
+import { HealthModule } from './infra/health/health.module';
 import { HttpModule } from './infra/http/http.module';
 
 @Module({
@@ -18,6 +19,7 @@ import { HttpModule } from './infra/http/http.module';
     DatabaseModule,
     GatewayModule,
     HttpModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [
