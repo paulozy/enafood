@@ -1,5 +1,6 @@
 import { CartUseCases } from '@core/application/factories/cart-usecases.factory';
 import { CreateCartInput } from '@core/application/usecases/add-product-to-cart.usecase';
+import { DecreaseProductQuantityFromCartInput } from '@core/application/usecases/decrease-product-quantity-from-cart.usecase';
 import { RemoveProductFromCartInput } from '@core/application/usecases/remove-product-from-cart.usecase';
 import { Inject, Injectable } from '@nestjs/common';
 import { InternalServerError, NotFound } from '../http-responses';
@@ -59,6 +60,25 @@ export class CartService {
       const { removeProduct } = this.cartUseCases;
 
       const cart = await removeProduct.execute(data);
+
+      return CartViewModel.toHttp(cart);
+    } catch (error) {
+      switch (error.constructor.name) {
+        case 'CustomerNotFoundError':
+          throw new NotFound(error.message);
+        case 'ProductNotFoundError':
+          throw new NotFound(error.message);
+        default:
+          throw new InternalServerError();
+      }
+    }
+  }
+
+  async decreaseProductQuantity(data: DecreaseProductQuantityFromCartInput) {
+    try {
+      const { decreaseProductQuantity } = this.cartUseCases;
+
+      const cart = await decreaseProductQuantity.execute(data);
 
       return CartViewModel.toHttp(cart);
     } catch (error) {
